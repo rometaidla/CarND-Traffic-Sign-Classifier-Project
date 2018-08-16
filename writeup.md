@@ -83,23 +83,73 @@ To train the model, I used an ....
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+I used iterative approach by changing one aspect of neural net architecture and then testing change with re-training network and measuring performance with validation set.
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+##### 1. First version, LeNet
+First architecture was just LeNet from previous lab. Image data was not preprocessed, no grayscaling or normalisation was done. This gave baseline performance that was used that future changes to preprocessing and model actually improved performance.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+10 epochs were used to train the model.
+
+Validation set accuracy: **87.3%**
+
+##### 2. Normalization
+
+First change to pipeline was adding normalization. All training, validation and testing image data was normalized by 2 ways:
+* **Centering**: data was centered around mean 0, which improves vanishing/exploding gradients and also increased convergence
+* **Scaling**: Image data was scaled down by dividing with 1 standard deviation, which helps convergence speed and accuracy
+
+20 epochs were used. At first I tried with 10 epoch, but because validation accuracy kept improving, I increased epochs to 20.
+
+Validation set accuracy: **92.7%**
+
+##### 3. Grayscale
+
+Improved data pipeline adding image conversion to grayscale. This didn't change accuracy.
+
+Validation set accuracy: **92.4%**
+
+##### 4. Dropout
+
+To avoid overfitting, dropout with keep probability 0.5 was added to dense (fully connected) layers. Dropout was not added to convolutional layers as weights are shared between spatial positions so there shouldn't be huge number of parameters to overfit.
+
+Validation set accuracy: **95.1%**
+
+##### 5. Additional layers
+
+Added new convolutional and dense layers, but this didn't improve performance.
+
+Validation set accuracy: **95.2%**
+
+##### 6. L2 regularization
+
+Added L2 regularization to all layers, this should reduce overfitting. 
+
+Tried with different beta values, but settled to 0.001.
+
+Validation set accuracy: **96.2%**
+
+##### 7. Data augmentation
+
+Added data augmentation to data pipeline by generating 3000 new images to every sign type by rotating, translating, shearing existing samples.
+
+As these images were generated in data pipeline and not while training, I was limited to memory available. As this didn't improve performance , I didn't look into improving this.
  
+Validations set accuracy: **95.6%**
+
+![sign types](./img/data%20augmentation.png)
+
+
+##### 8. More filters
+
+As model seems to have stagnated, I suspected that I need to have more parameters, so increased filter count in convolutional layers to 64. Tried different values like 32, but 64 gave best performance.
+
+Validation set accuracy: **98.1%**
+
+##### 9. Test set accuaracy
+
+As I had good enough validation set accuracy, it was time to test model with test data set.
+
+Test set accuracy: **95.2%**
 
 ### Test a Model on New Images
 
