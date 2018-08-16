@@ -136,7 +136,7 @@ As these images were generated in data pipeline and not while training, I was li
  
 Validations set accuracy: **95.6%**
 
-![sign types](./img/data%20augmentation.png)
+![data augmentation](./img/data_augmentation.png)
 
 
 ##### 8. More filters
