@@ -88,7 +88,19 @@ My final model consisted of the following layers:
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+##### Optimizer
+I used *AdamOptimizer* with learning rate *0.001* and as this worked quite well, did not try other optimizers.
+
+##### Batch size
+I started with batch size *128* and as this worked well, didn't experiment with other batch sizes.
+
+##### Number of epochs
+I started with 10 epochs. When mode still kept learning, I experimented with higher epochs counts (10, 20, 30...) until model stopped learning.
+
+In the end I settled to 20 epochs.
+
+##### Network architecture
+I started with LeNet architecture and step by step enhanced the hyperparameters like number of filters etc until I got best result validate set accuracy. This iterative approach is described in next paragraph.
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -150,7 +162,13 @@ As model seems to have stagnated, I suspected that I need to have more parameter
 
 Validation set accuracy: **98.1%**
 
-##### 9. Test set accuaracy
+##### 9. Max pooling -> strides
+
+I replaced separate max pooling layers with strides, this makes network simpler while not sacrificing accuracy.
+
+Validation set accuracy: **97.9%**
+
+##### 10. Test set accuracy
 
 As I had good enough validation set accuracy, it was time to test model with test data set.
 
@@ -184,7 +202,7 @@ Here are the results of the prediction:
 | Yield       			| Yield 										|
 | No vehicles			| No vehicles									|
 | General caution  		| General caution				 				|
-| Pedestrian    		| Children crossing    							|
+| Pedestrian    		| Right-of-way at the next intersection    							|
 | Keep right 		    | Keep right          							|
 
 
