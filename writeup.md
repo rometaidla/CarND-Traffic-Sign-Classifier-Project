@@ -74,16 +74,20 @@ My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 RGB image   							| 
+| Convolution 5x5     	| 2x2 stride, valid padding, outputs 14x14x64 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Convolution 5x5	    | 2x2 stride. valid padding, outputs 6x6x64		|
+| RELU					|												|
+| Flatten				|												|
+| Fully connected		| Input 1600, outputs 400   					|
+| RELU					|												|
+| Fully connected		| Input 400, outputs 120       					|
+| RELU					|												|
+| Fully connected		| Input 120, outputs 84       					|
+| RELU					|												|
+| Fully connected		| Input 84, outputs 43       					|
+| Softmax				|                      							| 
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
@@ -100,7 +104,10 @@ I started with 10 epochs. When mode still kept learning, I experimented with hig
 In the end I settled to 20 epochs.
 
 ##### Network architecture
-I started with LeNet architecture and step by step enhanced the hyperparameters like number of filters etc until I got best result validate set accuracy. This iterative approach is described in next paragraph.
+I started with LeNet architecture and step by step enhanced the hyperparameters like number of filters etc until I got best result validate set accuracy. Some things I tried out:
+* Increasing filter count to 64 had big impact on performance.
+* Changed filter 3x3, I hoped this would help to better distinguish different specifics in middle of signs, but it had small negative impact
+* Adding additional layers didn't have positive impact
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
