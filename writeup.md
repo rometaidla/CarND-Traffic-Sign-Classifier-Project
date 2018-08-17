@@ -156,6 +156,16 @@ As I had good enough validation set accuracy, it was time to test model with tes
 
 Test set accuracy: **95.2%**
 
+I also looked into how accurately model predicted each sign type:
+
+![accuracy by sign type](./img/accuracy_sign_type.png)
+
+5 sign types with lowest accuracy:
+
+![low accuracy](./img/badly_predicted_signs.png)
+
+It easy to see that all signs with low accuracy are red square/traingle with some specifics in middle, so model is having hard time distinguishing between these signs. This is what we predicted in data exploration and seems logical as images have quite low resolution. Improving networks this aspect would increase prediction accuracy.
+
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
