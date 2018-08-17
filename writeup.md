@@ -40,30 +40,6 @@ We can notice following things from these samples:
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
-##### Grayscale
-
-Images were converted to grayscale using OpenCV library. Some samples of grayscale images:
-
-![grayscale samples](./img/grayscale.png)
-
 ##### Data augmentation
  
 Data was augmented by generating new images by translating, rotating and shearing existing images. Some examples of generated instances:
@@ -74,6 +50,22 @@ Data was augmented by generating new images by translating, rotating and shearin
 3000 new instances were created for every sign type, this gave more uniform distribution of instances:
  
 ![data augmentation](./img/data_augmentation.png)
+
+##### Grayscale
+
+Images were converted to grayscale using OpenCV library. Some samples of grayscale images:
+
+![grayscale samples](./img/grayscale.png)
+
+##### Normalization
+
+All training, validation and testing image data was normalized by 2 ways:
+* **Centering**: data was centered around mean 0, which improves vanishing/exploding gradients and also increased convergence
+* **Scaling**: Image data was scaled down by dividing with 1 standard deviation, which helps convergence speed and accuracy
+
+```python
+X_train = (X_train - X_mean) / X_std
+```
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -111,9 +103,7 @@ Validation set accuracy: **87.3%**
 
 ##### 2. Normalization
 
-First change to pipeline was adding normalization. All training, validation and testing image data was normalized by 2 ways:
-* **Centering**: data was centered around mean 0, which improves vanishing/exploding gradients and also increased convergence
-* **Scaling**: Image data was scaled down by dividing with 1 standard deviation, which helps convergence speed and accuracy
+First change to pipeline was adding normalization.
 
 20 epochs were used. At first I tried with 10 epoch, but because validation accuracy kept improving, I increased epochs to 20.
 
