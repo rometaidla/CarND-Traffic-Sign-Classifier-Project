@@ -170,12 +170,9 @@ It easy to see that all signs with low accuracy are red square/traingle with som
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
-Here are five German traffic signs that I found on the web:
+I took 6 different sign types using Google Maps Street View from Berlin streets:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
-
-The first image might be difficult to classify because ...
+![alt text](./img/new_images.png)
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -183,14 +180,15 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Priority road    		| Priority road									| 
+| Yield       			| Yield 										|
+| No vehicles			| No vehicles									|
+| General caution  		| General caution				 				|
+| Pedestrian    		| Children crossing    							|
+| Keep right 		    | Keep right          							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. Only sign that was predicted wrong is Pedestrian, but this seems fair mistake as this sign is very similar to Children crossing sign. That is also similar problem we already noticed in data exploration and model testing stage.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -209,7 +207,27 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 For the second image ... 
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+### Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 
+I used following image to visualize feature maps:
+
+![visualizing image](./img/vis_sign.png)
+
+Output of **first layer**:
+
+![visualizing 1 layer](./img/vis_layer1.png)
+
+First layer outputs general lines from image.
+
+Some of the filter seems to output nothing, I think this indicates:
+* *Too many filter* - but when decreasing filter count from 64 to 32, model accuracy dropped
+* *Too few epochs* - but prediction accuracy has stabilized with 20 epochs and doesn't seem to improve when increasing to 30
+
+So not really sure how to improve this.
+
+Output of **second layer**:
+
+![visualizing 2 layer](./img/vis_layer2.png)
+
+Second layer outputs where different features are spatially found on image.
 
