@@ -58,6 +58,23 @@ Here is an example of an original image and an augmented image:
 
 The difference between the original data set and the augmented data set is the following ... 
 
+##### Grayscale
+
+Images were converted to grayscale using OpenCV library. Some samples of grayscale images:
+
+![grayscale samples](./img/grayscale.png)
+
+##### Data augmentation
+ 
+Data was augmented by generating new images by translating, rotating and shearing existing images. Some examples of generated instances:
+
+![data augmentation samples](./img/data_augmentation_samples.png)
+
+
+3000 new instances were created for every sign type, this gave more uniform distribution of instances:
+ 
+![data augmentation](./img/data_augmentation.png)
+
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -135,8 +152,6 @@ Added data augmentation to data pipeline by generating 3000 new images to every 
 As these images were generated in data pipeline and not while training, I was limited to memory available. As this didn't improve performance , I didn't look into improving this.
  
 Validations set accuracy: **95.6%**
-
-![data augmentation](./img/data_augmentation.png)
 
 
 ##### 8. More filters
