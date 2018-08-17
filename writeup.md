@@ -188,24 +188,41 @@ Here are the results of the prediction:
 | Keep right 		    | Keep right          							|
 
 
-The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. Only sign that was predicted wrong is Pedestrian, but this seems fair mistake as this sign is very similar to Children crossing sign. That is also similar problem we already noticed in data exploration and model testing stage.
+The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of **83.3%**. Only sign that was predicted wrong is *Pedestrian*, but this seems fair mistake as this sign is very similar to *Children crossing* sign. That is also similar problem we already noticed in data exploration and model testing stage.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For incorrectly predicted sign, these were probabilities:
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| .660         			| Right-of-way at the next intersection			| 
+| .202     				| Beware of ice/snow 							|
+| .126					| Children crossing								|
+| **.011**     			| **Pedestrians**				 				|
+| .000				    | Road work      							    |
 
+Correct sign class *Pedestrians* had only .011 probability.
 
-For the second image ... 
+For other signs, model predicted with 1.000 certainty correct sign, all others signs got .000
+
+This is because *logits* output is quite big numbers (some negative). For ex.:
+
+```
+[-50.615 -9.279 -6.437 -24.246 -23.738 -22.907 -34.755 -13.501 -41.476
+ -35.656 -33.362 -8.740 36.969 -13.907 -28.858 -35.761 -45.814 -35.312
+ -29.130 -53.413 -51.317 -36.521 -56.519 -55.871 -82.689 -21.270 -47.960
+ -62.535 -27.741 -56.364 -31.267 -70.155 -14.200 -24.300 -14.641 -8.276
+ -32.469 -21.779 8.023 -8.866 14.699 -13.673 -19.075]
+```
+
+As softmax is explonential function, this translates into one class getting *1.000* probability and every other class *.000*:
+```
+[0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+ 1.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+ 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000
+ 0.000 0.000 0.000 0.000 0.000 0.000 0.000]]
+```
 
 ### Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 
